@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Device Data Form</title>
+</head>
+<body>
+    <h2>Enter Device Data</h2>
+    <form id="deviceForm" action="#" th:action="@{/submit}" th:object="${deviceData}" method="post">
+        <div>
+            <label for="deviceSerialNumber">Device Serial Number:</label>
+            <input type="text" id="deviceSerialNumber" th:field="*{deviceSerialNumber}" placeholder="Enter device serial number...">
+        </div>
+        <div>
+            <label for="portNumber">Port Number:</label>
+            <select id="portNumber" th:field="*{portNumber}">
+                <option value="port1">Port 1</option>
+                <option value="port2">Port 2</option>
+                <option value="port3">Port 3</option>
+                <option value="port4">Port 4</option>
+                <option value="other">Other (Specify)</option>
+            </select>
+            <input type="text" id="otherPort" name="otherPort" style="display: none;" placeholder="Enter port number...">
+        </div>
+        </form>
+        <button type="submit">Submit</button>
+        <form id="downloadForm" action="#" th:action="@{/download}" method="get">
+        <button type="submit">Download Signature</button>    
+        </form>
+</body>
+</html>
