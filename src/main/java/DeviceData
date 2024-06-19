@@ -1,0 +1,26 @@
+package com.honeywell.ui.test.Model;
+
+
+public class DeviceData {
+
+    private String deviceSerialNumber;
+    private String portNumber;
+
+    // Getters and setters
+    public String getDeviceSerialNumber() {
+        return deviceSerialNumber;
+    }
+
+    public void setDeviceSerialNumber(String deviceSerialNumber) {
+        this.deviceSerialNumber = deviceSerialNumber;
+    }
+
+    public String getPortNumber() {
+        return portNumber;
+    }
+
+    public void setPortNumber(String portNumber) {
+        this.portNumber = portNumber;
+    }
+
+}
