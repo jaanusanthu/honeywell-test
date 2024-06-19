@@ -1,1 +1,42 @@
+package com.honeywell.ui.test.Controller;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.ResponseBody;
+
+import com.honeywell.ui.test.Model.DeviceData;
+import com.honeywell.ui.test.Service.SignatureService;
+
+@Controller
+public class DeviceController {
+
+    @Autowired
+    private SignatureService signatureService;
+
+    @GetMapping("/")
+    public String index(Model model) {
+        model.addAttribute("deviceData", new DeviceData());
+        return "index";
+    }
+
+    @PostMapping("/submit")
+    @ResponseBody
+    public String submit(@RequestBody DeviceData deviceData) {
+        String jsonData = signatureService.generateJSON(deviceData);
+        return jsonData;
+    }
+
+    @GetMapping("/download")
+    @ResponseBody
+    public String downloadSignature() {
+        String jsonData = ""; 
+        String signature = signatureService.generateSignature(jsonData);
+        String signatureBase64 = signatureService.convertToBase64(signature);
+        return signatureBase64;
+    }
+}
 
