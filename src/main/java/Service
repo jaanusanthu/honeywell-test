@@ -1,0 +1,42 @@
+package com.honeywell.ui.test.Service;
+
+
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.honeywell.ui.test.Model.DeviceData;
+
+import org.springframework.stereotype.Service;
+
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
+import java.util.Base64;
+
+@Service
+public class SignatureService {
+
+    private ObjectMapper objectMapper = new ObjectMapper();
+
+    public String generateJSON(DeviceData deviceData) {
+        try {
+            return objectMapper.writeValueAsString(deviceData);
+        } catch (JsonProcessingException e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
+
+    public String generateSignature(String jsonData) {
+        try {
+            MessageDigest digest = MessageDigest.getInstance("SHA-512");
+            byte[] hash = digest.digest(jsonData.getBytes());
+            return new String(hash);
+        } catch (NoSuchAlgorithmException e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
+
+    public String convertToBase64(String signature) {
+        return Base64.getEncoder().encodeToString(signature.getBytes());
+    }
+}
